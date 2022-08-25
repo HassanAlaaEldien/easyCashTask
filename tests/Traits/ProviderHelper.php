@@ -31,11 +31,16 @@ trait ProviderHelper
      */
     private function deleteMockingFiles(): void
     {
+        // Delete all old testing files.
         $files = glob(storage_path("mockingFiles/*"));
         foreach ($files as $file) {
             if (is_file($file)) {
                 unlink($file);
             }
+        }
+        // Then, Create Mocking Folder If It Doesn't Exist.
+        if (!file_exists(storage_path("mockingFiles"))) {
+            mkdir(storage_path("mockingFiles"), 0777, true);
         }
     }
 
