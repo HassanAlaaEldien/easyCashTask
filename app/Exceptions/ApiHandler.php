@@ -94,10 +94,7 @@ class ApiHandler extends ExceptionHandler
      */
     protected function convertValidationExceptionToResponse(ValidationException $e, $request)
     {
-        $errors = $e->response ?? $e->validator->errors()->getMessages();
-        $errors = call_user_func_array('array_merge', array_values($errors));
-
-        return $this->apiResponder->respondWithValidationError($errors[0]);
+        return $this->apiResponder->respondWithValidationError($e->getMessage());
     }
 
 

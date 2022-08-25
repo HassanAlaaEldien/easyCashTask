@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Exceptions\ApiHandler;
 use App\Http\Responses\ApiResponder;
 use App\Http\Responses\ResponsesInterface;
+use App\TransactionServices\ProviderAccessor\Accessors\LiveProviders;
+use App\TransactionServices\ProviderAccessor\Contracts\ProviderFileAccessor;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,5 +31,8 @@ class APIServiceProvider extends ServiceProvider
 
         // Use the ApiHandler as the main exception handler
         $this->app->singleton(ExceptionHandler::class, ApiHandler::class);
+
+        // Use the LiveProvider as the main provider reader
+        $this->app->bind(ProviderFileAccessor::class, LiveProviders::class);
     }
 }
